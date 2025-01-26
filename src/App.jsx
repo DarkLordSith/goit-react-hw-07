@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { fetchContacts } from "./redux/contactsOps";
+import { fetchContacts, addContact } from "./redux/contactsOps";
 import ContactForm from "./components/ContactForm/ContactForm";
 import SearchBox from "./components/SearchBox/SearchBox";
 import ContactList from "./components/ContactList/ContactList";
@@ -13,15 +13,16 @@ const App = () => {
     dispatch(fetchContacts());
   }, [dispatch]);
 
+  const handleAddContact = (contact) => {
+    dispatch(addContact(contact));
+  };
+
   return (
     <div className="app">
       <h1>Phonebook</h1>
-      <ContactForm onSubmit={addContact} />
-      <SearchBox value={filter} onChange={handleFilterChange} />
-      <ContactList
-        contacts={filteredContacts}
-        onDeleteContact={deleteContact}
-      />
+      <ContactForm onSubmit={handleAddContact} />
+      <SearchBox />
+      <ContactList />
     </div>
   );
 };
